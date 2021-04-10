@@ -1,9 +1,12 @@
 package com.example.mad03_fragments_and_navigation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioGroup
+import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.mad03_fragments_and_navigation.databinding.FragmentQuizBinding
@@ -15,6 +18,8 @@ class QuizFragment : Fragment() {
     private lateinit var binding: FragmentQuizBinding
     private val questions = QuestionCatalogue().defaultQuestions    // get a list of questions for the game
     private var score = 0                                           // save the user's score
+    private lateinit var v: View
+    private var correct = 0
     private var index = 0                                           // index for question data to show
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -28,15 +33,22 @@ class QuizFragment : Fragment() {
             nextQuestion()
         }
 
+        // binding.answerBox.setOnCheckedChangeListener { group, checkedId -> Log.i("QuizFragment", "${group.indexOfChild(group.findViewById(checkedId))}") }
+        binding.answerBox.setOnCheckedChangeListener { group, checkedId -> correct = if (questions[index].answers[group.indexOfChild(group.findViewById(checkedId))].isCorrectAnswer) 1 else 0 }
+
+
         return binding.root
     }
 
-    private fun nextQuestion(){
+    private fun nextQuestion() {
+        Log.i("QuizFragment", "score: $score")
+        Log.i("QuizFragment", "correct: $correct")
+        Log.i("QuizFragment", "index: $index")
         // get selected answer
         // check if is correct answer
         // update score
         // check if there are any questions left
-            // show next question OR
-            // navigate to QuizEndFragment
+        // show next question OR
+        // navigate to QuizEndFragment
     }
 }
