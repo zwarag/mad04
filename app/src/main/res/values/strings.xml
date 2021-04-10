@@ -26,4 +26,5 @@
     <string name="default_score">0/0</string>
 
     <string name="question_progress">Question %d/%d</string>
+    <string name="restartButton">Restart Quiz</string>
 </resources>

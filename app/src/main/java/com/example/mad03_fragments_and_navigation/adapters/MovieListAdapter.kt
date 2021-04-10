@@ -13,14 +13,14 @@ import com.example.mad03_fragments_and_navigation.R
 import com.example.mad03_fragments_and_navigation.databinding.MovieItemBinding
 
 
-class MovieListAdapter:
-    ListAdapter<Movie, RecyclerView.ViewHolder>(
-        MovieDiffCallback()
-    ) {
+class MovieListAdapter :
+        ListAdapter<Movie, RecyclerView.ViewHolder>(
+                MovieDiffCallback()
+        ) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder{
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ViewHolder(
-            DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.movie_item, parent, false),   //the binding
+                DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.movie_item, parent, false),   //the binding
         )
     }
 
@@ -31,18 +31,18 @@ class MovieListAdapter:
      * */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         //call the custom bind function from ViewHolder class
-        if(holder is ViewHolder){
+        if (holder is ViewHolder) {
             holder.bind(getItem(position))
         }
     }
 
     class ViewHolder(
-        private val binding: MovieItemBinding
+            private val binding: MovieItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.goToDetailBtn.setOnClickListener{ btnView ->
-                binding.movie?.id?.let { itemId->
+            binding.goToDetailBtn.setOnClickListener { btnView ->
+                binding.movie?.id?.let { itemId ->
                     btnView.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMovieDetailFragment(itemId.toString()))
                 }
             }
@@ -61,18 +61,18 @@ class MovieListAdapter:
     }
 }
 
-    private class MovieDiffCallback : DiffUtil.ItemCallback<Movie>() {
-        override fun areItemsTheSame(
+private class MovieDiffCallback : DiffUtil.ItemCallback<Movie>() {
+    override fun areItemsTheSame(
             oldItem: Movie,
             newItem: Movie
-        ): Boolean {
-            return oldItem.title == newItem.title
-        }
-
-        override fun areContentsTheSame(
-            oldItem: Movie,
-            newItem: Movie
-        ): Boolean {
-            return oldItem == newItem
-        }
+    ): Boolean {
+        return oldItem.title == newItem.title
     }
+
+    override fun areContentsTheSame(
+            oldItem: Movie,
+            newItem: Movie
+    ): Boolean {
+        return oldItem == newItem
+    }
+}
